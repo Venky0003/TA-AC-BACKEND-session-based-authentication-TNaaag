@@ -9,21 +9,35 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/register', (req, res, next) => {
-  res.render('register');
+  res.render('register', { error: req.flash('error')[0] });
 });
 
 router.post('/register', (req, res, next) => {
-  User.create(req.body).then((user) => {
-    if(err) return next(err);
-    res.redirect('/users/login');
-  });
+  User.create(req.body)
+    .then((user) => {
+      res.redirect('/users/login');
+    })
+    .catch((err) => {
+      if (
+        err.code === 11000 &&
+        err.keyPattern &&
+        err.keyValue &&
+        err.keyValue.email
+      ) {
+        req.flash('error', 'This Email is taken');
+        return res.redirect('/users/register');
+      } else if (err.name === 'ValidationError') {
+        let error = err.message;
+        req.flash('error', error);
+        return res.redirect('/users/register');
+      }
+      return res.json({ err });
+    });
 });
 
 //login form
 router.get('/login', (req, res, next) => {
- var error = req.flash('error')[0];
- console.log(error)
-  res.render('login',{ error});
+  res.render('login', { error: req.flash('error')[0] });
 });
 
 // login handler
@@ -38,28 +52,28 @@ router.post('/login', (req, res, next) => {
     console.log(user);
     // no user
     if (!user) {
-     return  res.redirect('/users/login');
+      req.flash('error', 'This Email is not Registered');
+      return res.redirect('/users/login');
     }
     // user compare password
     user.verifyPassword(password, (err, result) => {
       // console.log(result)
       if (err) return next(err);
       if (!result) {
+        req.flash('error', 'Incorrect Password')
         return res.redirect('/users/login');
-      } 
+      }
       // persist the logged in user info
       req.session.userId = user.id;
-      res.redirect('/users'); 
+      res.redirect('/users');
     });
   });
 });
 
-
-router.get('/logout',(req, res, next) =>{
+router.get('/logout', (req, res, next) => {
   req.session.destroy();
   res.clearCookie('connect.sid');
-  res.redirect('/users/login')
-})
-
+  res.redirect('/users/login');
+});
 
 module.exports = router;
