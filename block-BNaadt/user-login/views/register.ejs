@@ -11,13 +11,16 @@
       <div>
         <h2>Home</h2>
         <nav>
-          <a href="/users">Users</a>
-          <a href="users/login">Login</a>
+          <a href="/">home</a>
+          <a href="login">Login</a>
         </nav>
       </div>
     </header>
     <section>
       <form action="/users/register" method="POST">
+        <%if(error){ %>
+          <p><%= error %></p>
+        <%} %>
         <input type="text" name="name" placeholder="Name" />
         <input type="text" name="email" id="" placeholder="Eamil" />
         <input type="text" name="password" id="" placeholder="Passwrd" />
