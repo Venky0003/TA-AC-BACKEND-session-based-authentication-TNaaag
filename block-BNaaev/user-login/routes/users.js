@@ -4,7 +4,7 @@ var User = require('../models/user')
 
 /* GET users listing. */
 router.get("/", function(req, res, next) {
-  res.render('users');
+  res.render('user');
 });
 
 router.get("/register", (req, res, next) =>{
