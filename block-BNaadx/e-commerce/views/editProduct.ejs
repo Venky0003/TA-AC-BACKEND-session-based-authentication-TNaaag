@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="container flex justify-between align-center">
+        <h2><a href="/">Home</a></h2>
+        <nav>
+          <a class="links" href="/products">View Products</a>
+          <a class="links" href="/products/<%=product.id %>">Product Details</a>
+        </nav>
+      </div>
+    </header>
+    <section class="container text-center">
+      <h2 class="head-section">Update The Product Details</h2>
+      <form
+        class="form-edit"
+        action="/products/<%=product.id %>"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <label for="productName">Product Name</label>
+        <input
+          type="text"
+          name="productName"
+          placeholder="Product-Name"
+          value="<%= product.productName %>"
+          class="form-control"
+        />
+        <label for="quantity">Product Quantity</label>
+        <input
+          type="Number"
+          name="quantity"
+          placeholder="Quantity"
+          value="<%= product.quantity %>"
+          class="form-control"
+        />
+        <label for="price">Product Price</label>
+        <input
+          type="Number"
+          name="price"
+          placeholder="Price"
+          value="<%= product.price %>"
+          class="form-control"
+        />
+        <label for="likes">Product likes</label>
+        <input
+          type="Number"
+          name="likes"
+          placeholder="Likes"
+          value="<%= product.likes %>"
+          class="form-control"
+        />
+        <img
+          class="edit-image"
+          src="/uploads/<%= product.image %>"
+          alt="Current Product Image"
+        />
+        <input
+          class="form-control"
+          type="file"
+          name="image"
+          placeholder="Add Iamges"
+          class="form-control"
+        />
+        <input class="submit-btn update-btn" type="submit" value="Update" />
+      </form>
+    </section>
+  </body>
+</html>
