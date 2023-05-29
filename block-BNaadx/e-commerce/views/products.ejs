@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="container flex justify-between align-center">
+        <h2><a href="/">Home</a></h2>
+        <nav>
+          <a class="links" href="/products/new">Add Products</a>
+          <a class="links" href="/users/logout">Logout</a>
+          <a class="links" href="/admins/adminlogout">Admin-Logout</a>
+        </nav>
+      </div>
+    </header>
+    <section class="container">
+      <div class="container grid">
+        <% products.forEach(product => { %>
+        <a class="grid-item" href="/products/<%= product.id %>">
+          <img
+            class="product-img"
+            src="/uploads/<%= product.image %>"
+            alt="Product image"
+          />
+          <h2 class="name"><%= product. productName %></h2>
+        </a>
+        <% }) %>
+      </div>
+    </section>
+  </body>
+</html>
