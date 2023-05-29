@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <script src="https://kit.fontawesome.com/51a7cc97b5.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <header>
+      <div class="container flex justify-between align-center">
+        <h2><a href="/">Home</a></h2>
+        <nav>
+          <a class="links" href="/products">Products</a>
+          <a class="links" href="new">Add Products</a>
+        </nav>
+      </div>
+    </header>
+    <section class="container text-center">
+      <div class="details">
+        <img src="/uploads/<%= product.image %>" alt="Product image"/>
+        <h2> Product: <%= product.productName %></h2>
+        <p>Available Quantity: <%= product.quantity %></p>
+        <p>Rs:<%= product.price %></p>
+        
+        <a class="like-btn" href="/products/<%= product.id %>/likes"><%= product.likes %><i class="fa-solid fa-thumbs-up"></i></a>
+        <form class="add-cart" action="/users/products/<%= product._id %>/cart" method="GET">
+          <button type="submit">Add to Cart</button>
+        </form>
+      </div>
+      <a class="edit-btn" href="/products/<%= product.id %>/edit">edit</a>
+      <a class="edit-btn delete-btn" href="/products/<%= product.id %>/delete">Delete</a>
+    </section>
+  </body>
+</html>
